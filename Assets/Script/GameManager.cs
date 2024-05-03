@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int lastid,newid;
     public Transform panelContainer;
     public Transform winPopup;
+    public Transform pausemenu;
     public Button restartButton;
     public Vector2 gridSize;
     public GameObject lastObject,newObject;
@@ -35,9 +36,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
+        if (Input.GetKeyDown(KeyCode.R)) {
             RestartGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            PauseGame();
         }
     }
     /// <summary>
@@ -131,6 +135,11 @@ public class GameManager : MonoBehaviour
     void RestartGame()
     {
         SceneManager.LoadScene(0);
+    }
+
+    void PauseGame() {
+        Time.timeScale = 0.0f;
+        pausemenu.gameObject.SetActive(true);
     }
     IEnumerator DelayCallback(float delay, UnityEngine.Events.UnityAction callback) {
         yield return new WaitForSeconds(delay);
